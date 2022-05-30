@@ -10,11 +10,11 @@ class Server {
         this.port = process.env.PORT || 3000;
         this.pathApi='../routes/index'
         this.dbConnection ={
-            host: "localhost",
-            port: 3306,
-            user: 'root',
-            password: '123456789',
-            database:'monitorias'
+            host: process.env.HOST_DATABASE,
+            port: process.env.PORT_DATABASE,
+            user: process.env.USER_DATABASE,
+            password: process.env.PASSWORD_DATABASE,
+            database: process.env.SCHEMA_DATABASE
         }
 
         this.middlewares();

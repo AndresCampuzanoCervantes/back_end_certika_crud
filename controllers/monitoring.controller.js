@@ -1,4 +1,15 @@
 const { response } = require('express')
+const nodemailer = require('nodemailer')
+
+const transporter = nodemailer.createTransport({
+    host: "smtp.gmail.com",
+    port: 465,
+    secure: true, // true for 465, false for other ports
+    auth: {
+        user: process.env.USER_EMAIL, // generated ethereal user
+        pass: process.env.PASSWORD_EMAIL, // generated ethereal password
+    },
+});
 
 const createMonitoring = async (req, res = response) => {
     req.getConnection(async (err, conn) => {
@@ -162,9 +173,44 @@ const deleteMonitoring = async (req, res = response) => {
     })
 }
 
+const notifyMonitor = async (req, res = response) => {
+    const { idMonitor, course, classroom, date, message } = req.body
+    const contenctHtml = `
+    <h1>Recordatorio de Monitoria</h1>
+    <ul>
+        <li>Monitor: ${idMonitor.name} ${idMonitor.lastName}</li>
+        <li>Identificación: ${idMonitor.identification}</li>
+        <li>Programa: ${idMonitor.program}</li>
+        <li>Curso: ${course}</li>
+        <li>Salon de Clase: ${classroom}</li>
+        <li>Fecha: ${date}</li>
+    </ul>
+    <p>${message}</p>
+    `
+    try {
+        const info = await transporter.sendMail({
+            from: `"Recordatorio monitoria ${date} - ${course}" <andrescampuzanotest@gmail.com>`,
+            to: `${idMonitor.email}`,
+            subject: `Recordatorio monitoria ${date} - ${course}`,
+            html: contenctHtml,
+        });
+
+        res.json({
+            accepted: info.accepted,
+            response: info.response,
+            messageId: info.messageId,
+            status: 'success'
+        })
+    } catch (error) {
+        console.error(error);
+        res.json(JSON.stringify(error))
+    }
+
+}
 module.exports = {
     createMonitoring,
     findAllMonitoring,
     editMonitoring,
-    deleteMonitoring
+    deleteMonitoring,
+    notifyMonitor
 }

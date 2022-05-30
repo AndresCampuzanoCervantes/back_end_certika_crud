@@ -7,12 +7,6 @@ const { validarCampos } = require('../middlewares/validar-campos')
 
 const router = Router()
 
-router.get('/', userController.userGet)
-router.get('/findUserByEmail/:email', [
-    check('email','Ingrese un email válido').isEmail(),
-    validarCampos
-],userController.findUserByEmail)
-
 //router.put('/updateUser/:id', userController.userPut)
 
 router.post('/createUser',[

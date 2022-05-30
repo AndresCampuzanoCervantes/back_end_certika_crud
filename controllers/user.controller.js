@@ -2,19 +2,6 @@ const { response } = require('express')
 
 const bcrypt = require('bcryptjs');
 
-const userGet = (req, res = response) => {
-
-    req.getConnection((err, conn) => {
-        if (err) return res.send(err);
-        conn.query('select * from user', (err, rows) => {
-            if (err) return res.send(err);
-            //console.log(row)
-
-
-            res.json(rows)
-        })
-    })
-}
 const findUserByEmail = (req, res = response) => {
     req.getConnection((err, conn) => {
         if (err) return res.send(err);
@@ -26,6 +13,7 @@ const findUserByEmail = (req, res = response) => {
         })
     })
 }
+
 const createUser = async (req, res) => {
     req.getConnection(async (err, conn) => {
         if (err) return res.send(err);
@@ -72,6 +60,7 @@ const createUser = async (req, res) => {
          */
     })
 }
+
 const login = async (req, res) => {
     req.getConnection(async (err, conn) => {
         if (err) return res.send(err);
@@ -139,7 +128,6 @@ const userDelete=(req, res) => {
     })
 }*/
 module.exports = {
-    userGet,
     createUser,
     findUserByEmail,
     login,
