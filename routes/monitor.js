@@ -17,7 +17,6 @@ router.post('/createMonitor',[
     check('photo','La foto es obligatorio').not().isEmpty(),
     check('program','El programa es obligatorio').not().isEmpty(),
     check('semester','El semestre es obligatorio').not().isEmpty(),
-    //check('phoneNumber','El numero de telefono es obligatorio').not().isEmpty(),
     check('email','Ingrese un email válido').isEmail(),
     validarCampos
 ],monitorController.createMonitor)
@@ -29,7 +28,6 @@ router.put('/editMonitor/:id',[
     check('photo','La foto es obligatorio').not().isEmpty(),
     check('program','El programa es obligatorio').not().isEmpty(),
     check('semester','El semestre es obligatorio').not().isEmpty(),
-    //check('phoneNumber','El numero de telefono es obligatorio').not().isEmpty(),
     check('email','Ingrese un email válido').isEmail(),
     validarCampos
 ],monitorController.editMonitor)

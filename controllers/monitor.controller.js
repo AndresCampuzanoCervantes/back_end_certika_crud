@@ -39,19 +39,6 @@ const createMonitor = async (req, res = response) => {
                 })
             }
         })
-
-        /**
-         * {
-            "fieldCount": 0,
-            "affectedRows": 1,
-            "insertId": 3,
-            "serverStatus": 2,
-            "warningCount": 0,
-            "message": "",
-            "protocol41": true,
-            "changedRows": 0
-        }
-         */
     })
 }
 
@@ -120,19 +107,6 @@ const editMonitor = async (req, res = response) => {
                 });
             }
         })
-
-        /**
-         * {
-            "fieldCount": 0,
-            "affectedRows": 1,
-            "insertId": 3,
-            "serverStatus": 2,
-            "warningCount": 0,
-            "message": "",
-            "protocol41": true,
-            "changedRows": 0
-        }
-         */
     })
 }
 
@@ -167,6 +141,7 @@ const deleteMonitor = async (req, res = response) => {
 
     })
 }
+
 module.exports = {
     createMonitor,
     findAllMonitores,

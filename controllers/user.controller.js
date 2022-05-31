@@ -17,7 +17,7 @@ const findUserByEmail = (req, res = response) => {
 const createUser = async (req, res) => {
     req.getConnection(async (err, conn) => {
         if (err) return res.send(err);
-        const [ name, lastName, email, password, phoneNumer ] = req.body;
+        const { name, lastName, email, password, phoneNumer } = req.body;
         const user = {
             name,
             last_name: lastName,
@@ -42,22 +42,13 @@ const createUser = async (req, res) => {
             } else {
                 conn.query('insert into user set ?', user, (err, rows) => {
                     if (err) return res.send(err);
-                    res.json({ status: 'success' })
+
+                    res.json({ status: 'success',
+                                id:rows.insertId
+                })
                 })
             }
         })
-        /**
-         * {
-            "fieldCount": 0,
-            "affectedRows": 1,
-            "insertId": 3,
-            "serverStatus": 2,
-            "warningCount": 0,
-            "message": "",
-            "protocol41": true,
-            "changedRows": 0
-        }
-         */
     })
 }
 
@@ -108,29 +99,8 @@ const login = async (req, res) => {
     })
 }
 
-/*
-const userPut=(req, res) => {
-    const id = req.params.id;
-    const {password,google,email,...resto} = req.body;
-    if (password) {
-        const salt =bcrypt.genSaltSync();
-        resto.password = bcrypt.hashSync(password,salt);
-    }
-    const user = await User.findByIdAndUpdate(id,resto)
-    res.json({
-        message: 'Hello World - controller PUT',
-        user
-    })
-}
-const userDelete=(req, res) => {
-    res.json({
-        message: 'Hello World - controller DELETE'
-    })
-}*/
 module.exports = {
     createUser,
     findUserByEmail,
-    login,
-    //  userPut,
-    //  userDelete
+    login
 }

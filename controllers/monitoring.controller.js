@@ -4,10 +4,10 @@ const nodemailer = require('nodemailer')
 const transporter = nodemailer.createTransport({
     host: "smtp.gmail.com",
     port: 465,
-    secure: true, // true for 465, false for other ports
+    secure: true, 
     auth: {
-        user: process.env.USER_EMAIL, // generated ethereal user
-        pass: process.env.PASSWORD_EMAIL, // generated ethereal password
+        user: process.env.USER_EMAIL, 
+        pass: process.env.PASSWORD_EMAIL,
     },
 });
 
@@ -30,19 +30,6 @@ const createMonitoring = async (req, res = response) => {
                 id: rows.insertId
             })
         })
-
-        /**
-         * {
-            "fieldCount": 0,
-            "affectedRows": 1,
-            "insertId": 3,
-            "serverStatus": 2,
-            "warningCount": 0,
-            "message": "",
-            "protocol41": true,
-            "changedRows": 0
-        }
-         */
     })
 }
 
@@ -116,19 +103,6 @@ const editMonitoring = async (req, res = response) => {
                 });
             }
         })
-
-        /**
-         * {
-            "fieldCount": 0,
-            "affectedRows": 1,
-            "insertId": 3,
-            "serverStatus": 2,
-            "warningCount": 0,
-            "message": "",
-            "protocol41": true,
-            "changedRows": 0
-        }
-         */
     })
 }
 
@@ -207,6 +181,7 @@ const notifyMonitor = async (req, res = response) => {
     }
 
 }
+
 module.exports = {
     createMonitoring,
     findAllMonitoring,
